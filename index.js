@@ -5,6 +5,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import trainerRoutes from "./routes/trainerRoutes.js";
 import traineeRoutes from "./routes/traineeRoutes.js";
 import protectedRoutes from "./routes/protectedRoutes.js";
+import bookingRoutes from './routes/bookingRoutes.js';
 
 dotenv.config();
 
@@ -23,18 +24,20 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/trainer", trainerRoutes);
 app.use("/api/trainee", traineeRoutes);
 app.use("/api", protectedRoutes);
+app.use('/api', bookingRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 
 
 
-// const userSchema = new mongoose.Schema({ name: String, age: Number });
+const userSchema = new mongoose.Schema({ name: String, age: Number });
 
-// const UserModel = mongoose.model("gymusers", userSchema);
+const UserModel = mongoose.model("gymusers", userSchema);
 
-// app.get("/users", async (req, res) => {
-//   const userData = await UserModel.find();
-//   res.json(userData);
-// });
+app.get("/users", async (req, res) => {
+  const userData = await UserModel.find();
+  res.json(userData);
+});
 
 
 
