@@ -1,5 +1,5 @@
 import express from "express";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs"; // Changed to bcryptjs
 import jwt from "jsonwebtoken";
 import Trainee from "../models/Trainee.js";
 
@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ message: "Trainee already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10); // bcryptjs supports the same API
     const newTrainee = new Trainee({ name, email, password: hashedPassword });
 
     await newTrainee.save();
@@ -35,7 +35,7 @@ router.post("/login", async (req, res) => {
       return res.status(404).json({ message: "Trainee not found" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, trainee.password);
+    const isPasswordValid = await bcrypt.compare(password, trainee.password); // bcryptjs supports compare
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
