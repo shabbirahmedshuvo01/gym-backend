@@ -1,3 +1,5 @@
+// routed/trainerRoutes.js
+
 import express from "express";
 import ClassSchedule from "../models/ClassSchedule.js";
 import { authenticate } from "../middleware/auth.js";
